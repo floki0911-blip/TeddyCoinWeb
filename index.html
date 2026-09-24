@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
 <title>TeddyCoin</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -16,15 +17,13 @@
 html,body{
   margin:0;
   min-height:100%;
-  background:#070910;
+  background:#06070b;
   color:#fff;
   font-family:Arial,sans-serif;
-  overflow-x:hidden;
 }
 
 body{
-  background:
-    radial-gradient(circle at 50% -10%,#574900 0,#18160b 20%,#070910 55%);
+  overflow-x:hidden;
 }
 
 .app{
@@ -32,213 +31,292 @@ body{
   max-width:520px;
   min-height:100vh;
   margin:auto;
-  padding:18px 16px 110px;
-  position:relative;
+  padding:18px 15px 105px;
+  background:
+    radial-gradient(circle at 50% -10%,#514000 0,#17150c 22%,#090a0f 58%);
 }
 
 /* HEADER */
 
 .header{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
   font-size:27px;
   font-weight:900;
-  letter-spacing:-1px;
 }
 
 .logo span{
   color:#ffd447;
 }
 
-.profile{
+.avatar{
   width:46px;
   height:46px;
   border-radius:16px;
-  background:linear-gradient(145deg,#292d3b,#151822);
+  background:linear-gradient(145deg,#292d3a,#151821);
+  border:1px solid #383d4c;
   display:flex;
   justify-content:center;
   align-items:center;
   font-size:24px;
-  border:1px solid #373b49;
 }
 
 /* USER */
 
-.user{
-  margin-top:10px;
-  color:#858da1;
+.username{
+  margin-top:8px;
+  color:#7f8799;
   font-size:13px;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+  animation:pageIn .35s ease;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 /* BALANCE */
 
-.balance{
+.balance-card{
+  margin-top:20px;
+  padding:22px;
+  border-radius:28px;
   text-align:center;
-  margin-top:25px;
+
+  background:
+    radial-gradient(circle at 50% 0,#51440f,#19170d 45%,#11131b);
+
+  border:1px solid #4a401b;
+
+  box-shadow:
+    0 20px 50px #0008,
+    inset 0 1px #ffffff0a;
 }
 
-.balance-title{
-  color:#777f92;
-  font-size:12px;
+.balance-label{
+  color:#8c93a4;
+  font-size:11px;
   letter-spacing:2px;
 }
 
-.balance-number{
+.balance{
   margin-top:5px;
-  font-size:45px;
+  font-size:43px;
   font-weight:900;
-  letter-spacing:-2px;
 }
 
 .tc{
   color:#ffd447;
-  font-size:20px;
-  letter-spacing:0;
+  font-size:18px;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.stat{
+  padding:15px;
+  border-radius:20px;
+  background:#12151e;
+  border:1px solid #272c38;
+}
+
+.stat-title{
+  color:#777f91;
+  font-size:11px;
+}
+
+.stat-value{
+  margin-top:5px;
+  font-size:19px;
+  font-weight:900;
 }
 
 /* ENERGY */
 
-.energy-card{
-  margin-top:20px;
+.energy{
+  margin-top:12px;
   padding:16px;
   border-radius:22px;
-  background:linear-gradient(145deg,#171b27,#10131c);
-  border:1px solid #292e3b;
-  box-shadow:0 12px 35px #0005;
+  background:#12151e;
+  border:1px solid #272c38;
 }
 
 .energy-top{
   display:flex;
   justify-content:space-between;
-  color:#aeb6c7;
   font-size:13px;
+  color:#aab2c2;
 }
 
 .energy-bar{
-  height:10px;
+  height:9px;
   margin-top:10px;
-  background:#292d38;
+  background:#282c37;
   border-radius:20px;
   overflow:hidden;
 }
 
 .energy-fill{
-  height:100%;
   width:100%;
-  background:linear-gradient(90deg,#ffbd00,#ffe36c);
-  border-radius:20px;
-  transition:.25s;
+  height:100%;
+  background:linear-gradient(90deg,#ffad00,#ffe36b);
+  transition:.2s;
 }
 
 /* TEDDY */
 
-.teddy-area{
-  text-align:center;
-  margin-top:25px;
+.teddy-zone{
   position:relative;
+  text-align:center;
+  margin:28px 0 20px;
 }
 
-.teddy-button{
+.teddy{
   width:235px;
   height:235px;
+
   border:0;
   border-radius:50%;
-  font-size:112px;
-  cursor:pointer;
+
   background:
-    radial-gradient(circle at 35% 25%,#fff3a3,#ffd447 43%,#d39b00 100%);
+    radial-gradient(circle at 35% 25%,
+    #fff6ad 0,
+    #ffd447 40%,
+    #d99800 100%);
+
+  font-size:112px;
+
   box-shadow:
-    0 0 0 8px #ffd44712,
-    0 0 50px #ffd44735,
-    inset 0 -15px 30px #0002;
-  transition:transform .12s,box-shadow .2s;
-  position:relative;
+    0 0 0 8px #ffd4470d,
+    0 0 45px #ffd44745,
+    inset 0 -20px 30px #0002;
+
+  transition:.12s;
+
+  touch-action:manipulation;
 }
 
-.teddy-button:active{
+.teddy:active{
   transform:scale(.91);
-  box-shadow:
-    0 0 0 14px #ffd44718,
-    0 0 70px #ffd44755;
 }
 
-.teddy-button.hit{
+.teddy.hit{
   animation:teddyHit .28s ease;
 }
 
 @keyframes teddyHit{
   0%{transform:scale(1) rotate(0)}
-  35%{transform:scale(.88) rotate(-4deg)}
-  70%{transform:scale(1.06) rotate(4deg)}
+  30%{transform:scale(.88) rotate(-5deg)}
+  60%{transform:scale(1.07) rotate(5deg)}
   100%{transform:scale(1) rotate(0)}
 }
 
-.tap-text{
-  margin-top:14px;
-  color:#8d95a6;
-  font-size:14px;
+.tap{
+  margin-top:13px;
+  color:#777f91;
+  font-size:13px;
 }
 
 /* FLOAT COINS */
 
-.float{
+.coin-float{
   position:absolute;
   left:50%;
-  top:90px;
-  transform:translateX(-50%);
-  pointer-events:none;
+  top:75px;
+
   color:#ffd447;
-  font-size:24px;
+  font-size:25px;
   font-weight:900;
-  animation:floatUp .8s ease forwards;
-  z-index:10;
+
+  pointer-events:none;
+
+  animation:coinFloat .8s ease forwards;
 }
 
-@keyframes floatUp{
+@keyframes coinFloat{
   0%{
     opacity:0;
-    transform:translate(-50%,20px) scale(.7);
+    transform:translate(-50%,20px) scale(.6);
   }
+
   20%{
     opacity:1;
   }
+
   100%{
     opacity:0;
-    transform:translate(-50%,-100px) scale(1.15);
+    transform:translate(-50%,-110px) scale(1.2);
   }
 }
 
-/* CARDS */
+/* ACTION CARDS */
 
-.card{
-  margin-top:18px;
-  padding:18px;
+.action{
+  padding:17px;
   border-radius:22px;
-  background:linear-gradient(145deg,#171b27,#10131c);
-  border:1px solid #292e3b;
+  background:#12151e;
+  border:1px solid #292e3a;
+  margin-top:12px;
 }
 
-.card-row{
+.action-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.action-left{
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  gap:12px;
 }
 
-.card-title{
-  font-weight:800;
+.action-icon{
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  background:#202532;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:23px;
 }
 
-.card-sub{
-  color:#858da0;
-  font-size:12px;
+.action-title{
+  font-weight:900;
+}
+
+.action-sub{
   margin-top:4px;
+  color:#7d8597;
+  font-size:11px;
 }
-
-/* BUTTON */
 
 .btn{
   border:0;
@@ -247,134 +325,116 @@ body{
   background:#ffd447;
   color:#111;
   font-weight:900;
-  cursor:pointer;
 }
 
 .btn:active{
-  transform:scale(.95);
+  transform:scale(.94);
 }
 
-/* DAILY */
+/* TURBO */
 
-.daily{
+.turbo{
+  border-color:#5c4b14;
   background:
-    linear-gradient(135deg,#29210a,#17150d);
-  border:1px solid #5a4912;
+    linear-gradient(135deg,#211d0b,#12151e);
 }
 
-.daily-icon{
-  font-size:28px;
+.turbo-time{
+  color:#ffd447;
+  font-weight:900;
 }
 
-/* SECTIONS */
+/* TITLES */
 
-.section{
-  display:none;
-  animation:sectionIn .25s ease;
-}
-
-.section.active{
-  display:block;
-}
-
-@keyframes sectionIn{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.section h2{
-  margin-top:12px;
+.title{
+  margin:8px 0 16px;
+  font-size:25px;
 }
 
 /* SHOP */
 
-.shop-item{
-  margin-top:12px;
+.shop-card{
+  margin-top:11px;
   padding:17px;
-  border-radius:20px;
-  background:#151923;
-  border:1px solid #292e3b;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  border-radius:21px;
+  background:#12151e;
+  border:1px solid #292e3a;
 }
 
-.shop-left{
+.shop-top{
   display:flex;
+  justify-content:space-between;
   align-items:center;
-  gap:12px;
 }
 
 .shop-icon{
-  width:45px;
-  height:45px;
-  border-radius:14px;
-  background:#222633;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:22px;
-}
-
-/* PROFILE */
-
-.profile-card{
-  text-align:center;
-  padding:25px;
-}
-
-.big-avatar{
-  width:75px;
-  height:75px;
-  margin:auto;
-  border-radius:24px;
+  width:50px;
+  height:50px;
+  border-radius:16px;
   background:#222633;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:40px;
+  font-size:25px;
 }
 
-.profile-name{
-  margin-top:12px;
-  font-size:21px;
+.shop-info{
+  flex:1;
+  margin-left:12px;
+}
+
+.shop-name{
   font-weight:900;
 }
 
-.profile-id{
+.shop-desc{
   margin-top:5px;
-  color:#777f92;
-  font-size:12px;
+  color:#777f91;
+  font-size:11px;
+}
+
+/* FRIENDS */
+
+.invite-card{
+  text-align:center;
+  padding:28px 20px;
+  border-radius:25px;
+  background:
+    radial-gradient(circle at 50% 0,#31280b,#13161f 60%);
+  border:1px solid #4a401b;
+}
+
+.invite-icon{
+  font-size:50px;
+}
+
+.invite-title{
+  font-size:22px;
+  font-weight:900;
+  margin-top:10px;
+}
+
+.invite-desc{
+  color:#80889a;
+  font-size:13px;
+  line-height:1.5;
+  margin:10px 0 18px;
 }
 
 /* RATING */
 
-.rank-item{
+.rank{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  align-items:center;
-  padding:16px;
-  margin-top:10px;
-  background:#151923;
-  border:1px solid #292e3b;
-  border-radius:18px;
-}
 
-.rank-number{
-  width:34px;
-  height:34px;
-  border-radius:11px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#242936;
-  margin-right:10px;
+  padding:15px;
+
+  margin-top:10px;
+
+  background:#12151e;
+  border:1px solid #292e3a;
+  border-radius:19px;
 }
 
 .rank-left{
@@ -382,30 +442,111 @@ body{
   align-items:center;
 }
 
-/* BOTTOM NAV */
+.rank-num{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:#242936;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-right:11px;
+
+  font-weight:900;
+}
+
+.rank-name{
+  font-weight:800;
+}
+
+.rank-coins{
+  color:#ffd447;
+  font-weight:900;
+}
+
+/* PROFILE */
+
+.profile-card{
+  text-align:center;
+  padding:28px;
+  border-radius:25px;
+  background:#12151e;
+  border:1px solid #292e3a;
+}
+
+.profile-avatar{
+  width:82px;
+  height:82px;
+  margin:auto;
+
+  border-radius:27px;
+
+  background:
+    linear-gradient(145deg,#302f27,#181a22);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:43px;
+
+  box-shadow:0 10px 35px #0008;
+}
+
+.profile-name{
+  margin-top:14px;
+  font-size:22px;
+  font-weight:900;
+}
+
+.profile-id{
+  margin-top:6px;
+  color:#777f91;
+  font-size:11px;
+}
+
+.profile-stat{
+  display:flex;
+  justify-content:space-between;
+  padding:16px;
+  margin-top:10px;
+  border-radius:18px;
+  background:#12151e;
+  border:1px solid #292e3a;
+}
+
+/* BOTTOM */
 
 .nav{
   position:fixed;
   z-index:100;
+
   left:50%;
   bottom:0;
+
   transform:translateX(-50%);
+
   width:min(520px,100%);
-  padding:9px 8px calc(9px + env(safe-area-inset-bottom));
+
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  background:#0d1018ee;
+
+  padding:9px 6px calc(9px + env(safe-area-inset-bottom));
+
+  background:#0b0e15ee;
   backdrop-filter:blur(20px);
-  border-top:1px solid #292e3b;
+
+  border-top:1px solid #292e3a;
 }
 
 .nav button{
   border:0;
   background:none;
-  color:#71798b;
+  color:#70788b;
   font-size:10px;
-  padding:5px 0;
-  cursor:pointer;
+  padding:4px;
 }
 
 .nav button.active{
@@ -422,17 +563,25 @@ body{
 
 .toast{
   position:fixed;
-  z-index:200;
-  left:50%;
+  z-index:500;
+
   top:18px;
+  left:50%;
+
   transform:translate(-50%,-20px);
+
   padding:12px 18px;
-  border-radius:14px;
+
   background:#202531;
-  border:1px solid #363c4b;
+  border:1px solid #3a4050;
+
+  border-radius:15px;
+
   opacity:0;
   pointer-events:none;
+
   transition:.25s;
+
   font-size:13px;
 }
 
@@ -441,11 +590,28 @@ body{
   transform:translate(-50%,0);
 }
 
-/* TURBO */
+/* PARTICLES */
 
-.turbo-time{
-  color:#ffd447;
-  font-weight:900;
+.particle{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#ffd447;
+  pointer-events:none;
+  animation:particle .7s ease forwards;
+}
+
+@keyframes particle{
+  0%{
+    opacity:1;
+    transform:translate(0,0) scale(1);
+  }
+
+  100%{
+    opacity:0;
+    transform:translate(var(--x),var(--y)) scale(.2);
+  }
 }
 
 </style>
@@ -463,28 +629,28 @@ body{
 Teddy<span>Coin</span>
 </div>
 
-<div class="profile">
+<div class="avatar">
 🧸
 </div>
 
 </header>
 
-<div id="userName" class="user">
+<div id="username" class="username">
 Подключение Telegram...
 </div>
 
 
 <!-- HOME -->
 
-<section id="home" class="section active">
+<section id="home" class="page active">
 
-<div class="balance">
+<div class="balance-card">
 
-<div class="balance-title">
+<div class="balance-label">
 ТВОЙ БАЛАНС
 </div>
 
-<div class="balance-number">
+<div class="balance">
 <span id="coins">0</span>
 <span class="tc">TC</span>
 </div>
@@ -492,56 +658,120 @@ Teddy<span>Coin</span>
 </div>
 
 
-<div class="energy-card">
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-title">
+🔥 Множитель
+</div>
+
+<div class="stat-value">
+x<span id="multi">1</span>
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="stat-title">
+⚡ Энергия
+</div>
+
+<div class="stat-value">
+<span id="energy">1000</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="energy">
 
 <div class="energy-top">
 
 <span>⚡ Энергия</span>
 
 <b>
-<span id="energy">1000</span>/1000
+<span id="energyText">1000</span>/1000
 </b>
 
 </div>
 
 <div class="energy-bar">
+
 <div id="energyFill" class="energy-fill"></div>
-</div>
 
 </div>
 
+</div>
 
-<div class="teddy-area">
 
-<button id="teddy" class="teddy-button">
+<div class="teddy-zone">
+
+<button id="teddy" class="teddy">
 🧸
 </button>
 
-<div class="tap-text">
-Нажимай на Teddy и получай TC
+<div class="tap">
+Нажимай на Teddy
 </div>
 
 </div>
 
 
-<div class="card daily">
+<div class="action turbo">
 
-<div class="card-row">
+<div class="action-row">
 
-<div class="card-row">
+<div class="action-left">
 
-<div class="daily-icon">
+<div class="action-icon">
+🔥
+</div>
+
+<div>
+
+<div class="action-title">
+Turbo
+</div>
+
+<div class="action-sub">
+2× монеты на 30 секунд
+</div>
+
+</div>
+
+</div>
+
+<button id="turboBtn" class="btn" onclick="activateTurbo()">
+100 TC
+</button>
+
+</div>
+
+</div>
+
+
+<div class="action">
+
+<div class="action-row">
+
+<div class="action-left">
+
+<div class="action-icon">
 🎁
 </div>
 
-<div style="margin-left:12px">
+<div>
 
-<div class="card-title">
+<div class="action-title">
 Ежедневный бонус
 </div>
 
-<div class="card-sub">
-Получай монеты каждый день
+<div class="action-sub">
+Получай награду каждый день
 </div>
 
 </div>
@@ -556,53 +786,34 @@ Teddy<span>Coin</span>
 
 </div>
 
-
-<div class="card">
-
-<div class="card-row">
-
-<div>
-
-<div class="card-title">
-🔥 Turbo
-</div>
-
-<div class="card-sub">
-2× монеты на 30 секунд
-</div>
-
-</div>
-
-<button id="turboBtn" class="btn" onclick="turbo()">
-Активировать
-</button>
-
-</div>
-
-</div>
-
 </section>
 
 
 <!-- SHOP -->
 
-<section id="shop" class="section">
+<section id="shop" class="page">
 
-<h2>🛒 Магазин</h2>
+<div class="title">
+🛒 Магазин
+</div>
 
-<div class="shop-item">
 
-<div class="shop-left">
+<div class="shop-card">
+
+<div class="shop-top">
 
 <div class="shop-icon">
 ⚡
 </div>
 
-<div>
-<b>+250 энергии</b>
-<div class="card-sub">
-Восстановить энергию
+<div class="shop-info">
+
+<div class="shop-name">
++250 энергии
 </div>
+
+<div class="shop-desc">
+Восстановить запас энергии
 </div>
 
 </div>
@@ -613,20 +824,25 @@ Teddy<span>Coin</span>
 
 </div>
 
+</div>
 
-<div class="shop-item">
 
-<div class="shop-left">
+<div class="shop-card">
+
+<div class="shop-top">
 
 <div class="shop-icon">
 🔥
 </div>
 
-<div>
-<b>x2 множитель</b>
-<div class="card-sub">
-Увеличивает доход
+<div class="shop-info">
+
+<div class="shop-name">
+x2 множитель
 </div>
+
+<div class="shop-desc">
+Увеличивает доход навсегда
 </div>
 
 </div>
@@ -637,27 +853,34 @@ Teddy<span>Coin</span>
 
 </div>
 
+</div>
 
-<div class="shop-item">
 
-<div class="shop-left">
+<div class="shop-card">
+
+<div class="shop-top">
 
 <div class="shop-icon">
 💎
 </div>
 
-<div>
-<b>+1000 энергии</b>
-<div class="card-sub">
-Большой запас энергии
+<div class="shop-info">
+
+<div class="shop-name">
+Большой запас
 </div>
+
+<div class="shop-desc">
+Полностью восстановить энергию
 </div>
 
 </div>
 
-<button class="btn" onclick="buyBigEnergy()">
+<button class="btn" onclick="buyFullEnergy()">
 1500 TC
 </button>
+
+</div>
 
 </div>
 
@@ -666,49 +889,29 @@ Teddy<span>Coin</span>
 
 <!-- FRIENDS -->
 
-<section id="friends" class="section">
+<section id="friends" class="page">
 
-<h2>👥 Друзья</h2>
+<div class="title">
+👥 Друзья
+</div>
 
-<div class="card">
+<div class="invite-card">
 
-<div style="font-size:30px">
+<div class="invite-icon">
 🤝
 </div>
 
-<h3>
+<div class="invite-title">
 Приглашай друзей
-</h3>
-
-<div class="card-sub">
-Получайте бонусы вместе с друзьями.
 </div>
 
-<br>
+<div class="invite-desc">
+Отправляй свою ссылку друзьям и получай бонусы вместе.
+</div>
 
 <button class="btn" onclick="invite()">
-Пригласить друга
+🔗 Пригласить друга
 </button>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-row">
-
-<div>
-<b>Твои приглашения</b>
-<div class="card-sub">
-Пока 0 друзей
-</div>
-</div>
-
-<div style="font-size:25px">
-👥
-</div>
-
-</div>
 
 </div>
 
@@ -717,59 +920,71 @@ Teddy<span>Coin</span>
 
 <!-- RATING -->
 
-<section id="rating" class="section">
+<section id="rating" class="page">
 
-<h2>🏆 Рейтинг</h2>
+<div class="title">
+🏆 Рейтинг
+</div>
 
-<div class="rank-item">
+<div class="rank">
 
 <div class="rank-left">
 
-<div class="rank-number">
+<div class="rank-num">
 1
 </div>
 
-<b>Ты</b>
+<div class="rank-name">
+Ты
+</div>
 
 </div>
 
-<b id="rankCoins">
+<div id="rankCoins" class="rank-coins">
 0 TC
-</b>
+</div>
 
 </div>
 
 
-<div class="rank-item">
+<div class="rank">
 
 <div class="rank-left">
 
-<div class="rank-number">
+<div class="rank-num">
 2
 </div>
 
-<span>TeddyMaster</span>
+<div class="rank-name">
+TeddyMaster
+</div>
 
 </div>
 
-<span>—</span>
+<div class="rank-coins">
+—
+</div>
 
 </div>
 
 
-<div class="rank-item">
+<div class="rank">
 
 <div class="rank-left">
 
-<div class="rank-number">
+<div class="rank-num">
 3
 </div>
 
-<span>CoinBear</span>
+<div class="rank-name">
+CoinBear
+</div>
 
 </div>
 
-<span>—</span>
+<div class="rank-coins">
+—
+</div>
 
 </div>
 
@@ -778,13 +993,15 @@ Teddy<span>Coin</span>
 
 <!-- PROFILE -->
 
-<section id="profilePage" class="section">
+<section id="profile" class="page">
 
-<h2>👤 Профиль</h2>
+<div class="title">
+👤 Профиль
+</div>
 
-<div class="card profile-card">
+<div class="profile-card">
 
-<div class="big-avatar">
+<div class="profile-avatar">
 🧸
 </div>
 
@@ -799,9 +1016,7 @@ Telegram ID: —
 </div>
 
 
-<div class="card">
-
-<div class="card-row">
+<div class="profile-stat">
 
 <span>💰 Баланс</span>
 
@@ -811,20 +1026,25 @@ Telegram ID: —
 
 </div>
 
-</div>
 
+<div class="profile-stat">
 
-<div class="card">
-
-<div class="card-row">
-
-<span>⚡ Множитель</span>
+<span>🔥 Множитель</span>
 
 <b>
 x<span id="profileMulti">1</span>
 </b>
 
 </div>
+
+
+<div class="profile-stat">
+
+<span>⚡ Энергия</span>
+
+<b>
+<span id="profileEnergy">1000</span>
+</b>
 
 </div>
 
@@ -837,27 +1057,27 @@ x<span id="profileMulti">1</span>
 
 <nav class="nav">
 
-<button class="active" onclick="showPage('home',this)">
+<button class="active" onclick="openPage('home',this)">
 <span class="nav-icon">🏠</span>
 Главная
 </button>
 
-<button onclick="showPage('shop',this)">
+<button onclick="openPage('shop',this)">
 <span class="nav-icon">🛒</span>
 Магазин
 </button>
 
-<button onclick="showPage('friends',this)">
+<button onclick="openPage('friends',this)">
 <span class="nav-icon">👥</span>
 Друзья
 </button>
 
-<button onclick="showPage('rating',this)">
+<button onclick="openPage('rating',this)">
 <span class="nav-icon">🏆</span>
 Рейтинг
 </button>
 
-<button onclick="showPage('profilePage',this)">
+<button onclick="openPage('profile',this)">
 <span class="nav-icon">👤</span>
 Профиль
 </button>
@@ -874,58 +1094,58 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-let tgUser = null;
+let user = null;
 
 if(tg.initDataUnsafe && tg.initDataUnsafe.user){
 
-tgUser = tg.initDataUnsafe.user;
+  user = tg.initDataUnsafe.user;
 
-const name =
-tgUser.first_name ||
-tgUser.username ||
-"Игрок";
+  const name =
+    user.first_name ||
+    user.username ||
+    "Игрок";
 
-document.getElementById("userName").textContent =
-"👋 Привет, " + name + "!";
+  document.getElementById("username").textContent =
+    "👋 " + name;
 
-document.getElementById("profileName").textContent =
-name;
+  document.getElementById("profileName").textContent =
+    name;
 
-document.getElementById("profileId").textContent =
-"Telegram ID: " + tgUser.id;
-
-}else{
-
-document.getElementById("userName").textContent =
-"🧸 TeddyCoin";
+  document.getElementById("profileId").textContent =
+    "Telegram ID: " + user.id;
 
 }
 
 
-/* GAME DATA */
+/* DATA */
 
-let coins = Number(localStorage.getItem("coins") || 0);
+let coins =
+  Number(localStorage.getItem("coins") || 0);
 
-let energy = Number(localStorage.getItem("energy") || 1000);
+let energy =
+  Number(localStorage.getItem("energy") || 1000);
 
-let multi = Number(localStorage.getItem("multi") || 1);
+let multi =
+  Number(localStorage.getItem("multi") || 1);
 
-let turboOn = false;
+let turbo =
+  false;
 
-let turboSeconds = 0;
+let turboTime =
+  0;
 
 
 /* SAVE */
 
 function save(){
 
-localStorage.setItem("coins",coins);
+  localStorage.setItem("coins",coins);
 
-localStorage.setItem("energy",energy);
+  localStorage.setItem("energy",energy);
 
-localStorage.setItem("multi",multi);
+  localStorage.setItem("multi",multi);
 
-update();
+  update();
 
 }
 
@@ -934,23 +1154,32 @@ update();
 
 function update(){
 
-document.getElementById("coins").textContent =
-coins;
+  document.getElementById("coins").textContent =
+    coins;
 
-document.getElementById("energy").textContent =
-energy;
+  document.getElementById("energy").textContent =
+    energy;
 
-document.getElementById("energyFill").style.width =
-Math.min(100,energy / 10) + "%";
+  document.getElementById("energyText").textContent =
+    energy;
 
-document.getElementById("rankCoins").textContent =
-coins + " TC";
+  document.getElementById("energyFill").style.width =
+    Math.min(100,energy / 10) + "%";
 
-document.getElementById("profileCoins").textContent =
-coins;
+  document.getElementById("multi").textContent =
+    multi;
 
-document.getElementById("profileMulti").textContent =
-multi;
+  document.getElementById("rankCoins").textContent =
+    coins + " TC";
+
+  document.getElementById("profileCoins").textContent =
+    coins;
+
+  document.getElementById("profileMulti").textContent =
+    multi;
+
+  document.getElementById("profileEnergy").textContent =
+    energy;
 
 }
 
@@ -959,182 +1188,230 @@ multi;
 
 function toast(text){
 
-const el =
-document.getElementById("toast");
+  const el =
+    document.getElementById("toast");
 
-el.textContent = text;
+  el.textContent =
+    text;
 
-el.classList.add("show");
+  el.classList.add("show");
 
-setTimeout(function(){
+  setTimeout(function(){
 
-el.classList.remove("show");
+    el.classList.remove("show");
 
-},1800);
+  },1800);
+
+}
+
+
+/* PARTICLES */
+
+function particles(){
+
+  const zone =
+    document.querySelector(".teddy-zone");
+
+  for(let i=0;i<8;i++){
+
+    const p =
+      document.createElement("div");
+
+    p.className =
+      "particle";
+
+    p.style.left =
+      "50%";
+
+    p.style.top =
+      "100px";
+
+    p.style.setProperty(
+      "--x",
+      (Math.random()*180-90)+"px"
+    );
+
+    p.style.setProperty(
+      "--y",
+      (Math.random()*-140-30)+"px"
+    );
+
+    zone.appendChild(p);
+
+    setTimeout(function(){
+
+      p.remove();
+
+    },700);
+
+  }
 
 }
 
 
-/* TEDDY CLICK */
+/* TEDDY */
 
-document.getElementById("teddy").addEventListener(
-"click",
-function(){
+document
+.getElementById("teddy")
+.addEventListener("click",function(){
 
-if(energy <= 0){
+  if(energy <= 0){
 
-toast("⚡ Нет энергии!");
+    toast("⚡ Энергия закончилась!");
 
-return;
+    return;
 
-}
+  }
 
-let gain =
-multi * (turboOn ? 2 : 1);
+  let gain =
+    multi * (turbo ? 2 : 1);
 
-coins += gain;
+  coins += gain;
 
-energy--;
+  energy--;
 
-save();
-
-
-/* ANIMATION */
-
-const teddy =
-document.getElementById("teddy");
-
-teddy.classList.remove("hit");
-
-void teddy.offsetWidth;
-
-teddy.classList.add("hit");
+  save();
 
 
-/* FLOAT TEXT */
+  const teddy =
+    document.getElementById("teddy");
 
-const float =
-document.createElement("div");
+  teddy.classList.remove("hit");
 
-float.className = "float";
+  void teddy.offsetWidth;
 
-float.textContent =
-"+" + gain + " TC";
+  teddy.classList.add("hit");
 
-document.querySelector(".teddy-area")
-.appendChild(float);
 
-setTimeout(function(){
+  const text =
+    document.createElement("div");
 
-float.remove();
+  text.className =
+    "coin-float";
 
-},800);
+  text.textContent =
+    "+" + gain + " TC";
+
+  document
+    .querySelector(".teddy-zone")
+    .appendChild(text);
+
+  setTimeout(function(){
+
+    text.remove();
+
+  },800);
+
+
+  particles();
 
 });
 
 
-/* ENERGY REGEN */
+/* ENERGY */
 
 setInterval(function(){
 
-if(energy < 1000){
+  if(energy < 1000){
 
-energy++;
+    energy++;
 
-save();
+    save();
 
-}
+  }
 
 },1000);
 
 
 /* TURBO */
 
-function turbo(){
+function activateTurbo(){
 
-if(turboOn){
+  if(turbo){
 
-toast("🔥 Turbo уже активен!");
+    toast("🔥 Turbo уже работает!");
 
-return;
+    return;
+
+  }
+
+  if(coins < 100){
+
+    toast("❌ Нужно 100 TC");
+
+    return;
+
+  }
+
+  coins -= 100;
+
+  turbo = true;
+
+  turboTime = 30;
+
+  save();
+
+  const btn =
+    document.getElementById("turboBtn");
+
+  btn.textContent =
+    "30с";
+
+
+  const timer =
+    setInterval(function(){
+
+      turboTime--;
+
+      btn.textContent =
+        turboTime + "с";
+
+      if(turboTime <= 0){
+
+        clearInterval(timer);
+
+        turbo = false;
+
+        btn.textContent =
+          "100 TC";
+
+        toast("🔥 Turbo закончился!");
+
+      }
+
+    },1000);
 
 }
 
-if(coins < 100){
 
-toast("Нужно 100 TC");
-
-return;
-
-}
-
-coins -= 100;
-
-turboOn = true;
-
-turboSeconds = 30;
-
-toast("🔥 Turbo активирован!");
-
-const btn =
-document.getElementById("turboBtn");
-
-const timer =
-setInterval(function(){
-
-turboSeconds--;
-
-btn.textContent =
-turboSeconds + "с";
-
-if(turboSeconds <= 0){
-
-clearInterval(timer);
-
-turboOn = false;
-
-btn.textContent =
-"Активировать";
-
-toast("🔥 Turbo закончился!");
-
-}
-
-},1000);
-
-save();
-
-}
-
-
-/* DAILY BONUS */
+/* DAILY */
 
 function dailyBonus(){
 
-const today =
-new Date().toDateString();
+  const today =
+    new Date().toDateString();
 
-const last =
-localStorage.getItem("dailyBonus");
+  const last =
+    localStorage.getItem("dailyBonus");
 
-if(last === today){
+  if(last === today){
 
-toast("🎁 Бонус уже получен!");
+    toast("🎁 Бонус уже получен!");
 
-return;
+    return;
 
-}
+  }
 
-coins += 500;
+  coins += 500;
 
-localStorage.setItem(
-"dailyBonus",
-today
-);
+  localStorage.setItem(
+    "dailyBonus",
+    today
+  );
 
-save();
+  save();
 
-toast("🎁 +500 TC!");
+  toast("🎁 +500 TC!");
 
 }
 
@@ -1143,73 +1420,72 @@ toast("🎁 +500 TC!");
 
 function buyEnergy(){
 
-if(coins < 500){
+  if(coins < 500){
 
-toast("❌ Недостаточно TC");
+    toast("❌ Недостаточно TC");
 
-return;
+    return;
 
-}
+  }
 
-if(energy >= 1000){
+  if(energy >= 1000){
 
-toast("⚡ Энергия уже полная");
+    toast("⚡ Энергия полная");
 
-return;
+    return;
 
-}
+  }
 
-coins -= 500;
+  coins -= 500;
 
-energy =
-Math.min(1000,energy + 250);
+  energy =
+    Math.min(1000,energy + 250);
 
-save();
+  save();
 
-toast("⚡ +250 энергии!");
-
-}
-
-
-function buyBigEnergy(){
-
-if(coins < 1500){
-
-toast("❌ Недостаточно TC");
-
-return;
-
-}
-
-coins -= 1500;
-
-energy =
-Math.min(1000,energy + 1000);
-
-save();
-
-toast("💎 Энергия восстановлена!");
+  toast("⚡ +250 энергии!");
 
 }
 
 
 function buyMulti(){
 
-if(coins < 2500){
+  if(coins < 2500){
 
-toast("❌ Недостаточно TC");
+    toast("❌ Недостаточно TC");
 
-return;
+    return;
+
+  }
+
+  coins -= 2500;
+
+  multi *= 2;
+
+  save();
+
+  toast("🔥 Множитель x" + multi);
 
 }
 
-coins -= 2500;
 
-multi *= 2;
+function buyFullEnergy(){
 
-save();
+  if(coins < 1500){
 
-toast("🔥 Множитель увеличен!");
+    toast("❌ Недостаточно TC");
+
+    return;
+
+  }
+
+  coins -= 1500;
+
+  energy = 1000;
+
+  save();
+
+  toast("💎 Энергия восстановлена!");
 
 }
 
@@ -1218,55 +1494,54 @@ toast("🔥 Множитель увеличен!");
 
 function invite(){
 
-const link =
-location.href;
+  if(navigator.clipboard){
 
-if(navigator.clipboard){
+    navigator.clipboard.writeText(
+      location.href
+    );
 
-navigator.clipboard.writeText(link);
+    toast("🔗 Ссылка скопирована!");
 
-toast("🔗 Ссылка скопирована!");
+  }else{
 
-}else{
+    toast("🔗 Скопируй ссылку из браузера");
 
-toast("🔗 Скопируй ссылку из браузера");
-
-}
+  }
 
 }
 
 
 /* NAVIGATION */
 
-function showPage(id,button){
+function openPage(id,button){
 
-document
-.querySelectorAll(".section")
-.forEach(function(section){
+  document
+    .querySelectorAll(".page")
+    .forEach(function(page){
 
-section.classList.remove("active");
+      page.classList.remove("active");
 
-});
+    });
 
-document
-.getElementById(id)
-.classList.add("active");
+  document
+    .getElementById(id)
+    .classList.add("active");
 
 
-document
-.querySelectorAll(".nav button")
-.forEach(function(btn){
+  document
+    .querySelectorAll(".nav button")
+    .forEach(function(btn){
 
-btn.classList.remove("active");
+      btn.classList.remove("active");
 
-});
+    });
 
-button.classList.add("active");
+  button.classList.add("active");
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
