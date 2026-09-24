@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TeddyCoin</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:#080a0f;
+    color:white;
+    font-family:Arial,sans-serif;
+}
+
+.app{
+    max-width:520px;
+    min-height:100vh;
+    margin:auto;
+    padding:20px 16px 100px;
+    background:
+    radial-gradient(circle at 50% 10%,#303747,#11151e 40%,#080a0f 75%);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#ffd447;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    background:#202532;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+}
+
+.balance{
+    text-align:center;
+    margin-top:30px;
+}
+
+.balance small{
+    color:#8993a6;
+}
+
+.balance h1{
+    font-size:42px;
+    margin:6px 0;
+}
+
+.coin{
+    color:#ffd447;
+}
+
+.card{
+    background:#151a24;
+    border:1px solid #292f3c;
+    border-radius:22px;
+    padding:18px;
+}
+
+.energy{
+    margin-top:20px;
+}
+
+.energy-top{
+    display:flex;
+    justify-content:space-between;
+    color:#aeb7c8;
+    font-size:14px;
+}
+
+.bar{
+    height:9px;
+    background:#292f3b;
+    border-radius:20px;
+    margin-top:9px;
+    overflow:hidden;
+}
+
+.fill{
+    height:100%;
+    width:100%;
+    background:#ffd447;
+    transition:.2s;
+}
+
+.teddy-wrap{
+    text-align:center;
+    margin:28px 0;
+}
+
+.teddy{
+    width:220px;
+    height:220px;
+    border:0;
+    border-radius:50%;
+    background:radial-gradient(
+        circle at 35% 25%,
+        #fff3a6,
+        #ffd447 45%,
+        #d99e00
+    );
+    font-size:105px;
+    box-shadow:0 0 50px #ffd44755;
+    cursor:pointer;
+}
+
+.teddy:active{
+    transform:scale(.93);
+}
+
+.hint{
+    margin-top:14px;
+    color:#8993a6;
+}
+
+.bonus{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.btn{
+    border:0;
+    border-radius:14px;
+    padding:12px 16px;
+    background:#ffd447;
+    color:#111;
+    font-weight:bold;
+}
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+.items{
+    display:grid;
+    gap:12px;
+    margin-top:15px;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#151a24;
+    border:1px solid #292f3c;
+    border-radius:18px;
+    padding:16px;
+}
+
+.nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(520px,100%);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    background:#0d1118ee;
+    backdrop-filter:blur(15px);
+    padding:10px;
+    border-top:1px solid #292f3c;
+}
+
+.nav button{
+    border:0;
+    background:transparent;
+    color:#858fa1;
+    padding:7px;
+}
+
+.nav button.active{
+    color:#ffd447;
+}
+
+.nav span{
+    display:block;
+    font-size:21px;
+    margin-bottom:3px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+    <div class="logo">Teddy<span>Coin</span></div>
+    <div class="avatar">🧸</div>
+</header>
+
+<section id="home" class="section active">
+
+<div class="balance">
+    <small>ТВОЙ БАЛАНС</small>
+    <h1>
+        <span id="coins">0</span>
+        <span class="coin">TC</span>
+    </h1>
+</div>
+
+<div class="card energy">
+
+<div class="energy-top">
+    <span>⚡ Энергия</span>
+    <b><span id="energy">1000</span>/1000</b>
+</div>
+
+<div class="bar">
+    <div id="fill" class="fill"></div>
+</div>
+
+</div>
+
+<div class="teddy-wrap">
+
+<button id="teddy" class="teddy">
+    🧸
+</button>
+
+<div class="hint">
+    Нажимай на Teddy и получай монеты
+</div>
+
+</div>
+
+<div class="card bonus">
+
+<div>
+    <b>🔥 Turbo</b>
+    <br>
+    <small>2× монеты на 30 секунд</small>
+</div>
+
+<button class="btn" onclick="turbo()">
+    Активировать
+</button>
+
+</div>
+
+</section>
+
+
+<section id="shop" class="section">
+
+<h2>🛒 Магазин</h2>
+
+<div class="items">
+
+<div class="item">
+    <div>
+        ⚡ <b>+250 энергии</b>
+        <br>
+        <small>Восстановить энергию</small>
+    </div>
+
+    <button class="btn" onclick="buyEnergy()">
+        500 TC
+    </button>
+</div>
+
+
+<div class="item">
+
+<div>
+    🔥 <b>x2 множитель</b>
+    <br>
+    <small>Удваивает доход</small>
+</div>
+
+<button class="btn" onclick="buyMulti()">
+    2500 TC
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="friends" class="section">
+
+<h2>👥 Друзья</h2>
+
+<div class="card">
+
+<h3>Приглашай друзей</h3>
+
+<p style="color:#929bad">
+Получайте бонусы вместе.
+</p>
+
+<button class="btn" onclick="invite()">
+    Пригласить друга
+</button>
+
+</div>
+
+</section>
+
+
+<section id="rating" class="section">
+
+<h2>🏆 Рейтинг</h2>
+
+<div class="items">
+
+<div class="item">
+    <b>1. Ты</b>
+    <b id="rankCoins">0 TC</b>
+</div>
+
+<div class="item">
+    <span>2. TeddyMaster</span>
+    <span>—</span>
+</div>
+
+<div class="item">
+    <span>3. CoinBear</span>
+    <span>—</span>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<nav class="nav">
+
+<button class="active" onclick="show('home',this)">
+    <span>🏠</span>
+    Главная
+</button>
+
+<button onclick="show('shop',this)">
+    <span>🛒</span>
+    Магазин
+</button>
+
+<button onclick="show('friends',this)">
+    <span>👥</span>
+    Друзья
+</button>
+
+<button onclick="show('rating',this)">
+    <span>🏆</span>
+    Рейтинг
+</button>
+
+</nav>
+
+
+<script>
+
+let coins = Number(localStorage.coins || 0);
+
+let energy = Number(localStorage.energy || 1000);
+
+let multi = Number(localStorage.multi || 1);
+
+let turboOn = false;
+
+
+function save(){
+
+    localStorage.coins = coins;
+
+    localStorage.energy = energy;
+
+    localStorage.multi = multi;
+
+    update();
+
+}
+
+
+function update(){
+
+    document.getElementById("coins").textContent = coins;
+
+    document.getElementById("energy").textContent = energy;
+
+    document.getElementById("fill").style.width =
+        (energy / 10) + "%";
+
+    document.getElementById("rankCoins").textContent =
+        coins + " TC";
+
+}
+
+
+document.getElementById("teddy").addEventListener(
+    "click",
+    function(){
+
+        if(energy <= 0) return;
+
+        let gain = multi * (turboOn ? 2 : 1);
+
+        coins += gain;
+
+        energy--;
+
+        save();
+
+    }
+);
+
+
+function turbo(){
+
+    if(turboOn) return;
+
+    turboOn = true;
+
+    setTimeout(function(){
+
+        turboOn = false;
+
+    },30000);
+
+}
+
+
+function buyEnergy(){
+
+    if(coins >= 500 && energy < 1000){
+
+        coins -= 500;
+
+        energy = Math.min(1000,energy + 250);
+
+        save();
+
+    }
+
+}
+
+
+function buyMulti(){
+
+    if(coins >= 2500){
+
+        coins -= 2500;
+
+        multi *= 2;
+
+        save();
+
+    }
+
+}
+
+
+function invite(){
+
+    navigator.clipboard.writeText(location.href);
+
+    alert("Ссылка скопирована!");
+
+}
+
+
+function show(id,button){
+
+    document
+    .querySelectorAll(".section")
+    .forEach(x => x.classList.remove("active"));
+
+    document
+    .getElementById(id)
+    .classList.add("active");
+
+    document
+    .querySelectorAll(".nav button")
+    .forEach(x => x.classList.remove("active"));
+
+    button.classList.add("active");
+
+}
+
+
+setInterval(function(){
+
+    if(energy < 1000){
+
+        energy++;
+
+        save();
+
+    }
+
+},1000);
+
+
+update();
+
+</script>
+
+</body>
+</html>
