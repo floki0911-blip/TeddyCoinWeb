@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
 <title>TeddyCoin</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -17,67 +16,188 @@
 html,body{
   margin:0;
   min-height:100%;
-  background:#06070b;
-  color:#fff;
   font-family:Arial,sans-serif;
+  color:#fff;
+  background:#59d5ff;
 }
 
 body{
   overflow-x:hidden;
 }
 
+button{
+  font-family:inherit;
+  border:0;
+  cursor:pointer;
+}
+
 .app{
-  width:100%;
-  max-width:520px;
   min-height:100vh;
+  max-width:560px;
   margin:auto;
-  padding:18px 15px 105px;
+  padding:12px 12px 105px;
+  position:relative;
+  overflow:hidden;
+
   background:
-    radial-gradient(circle at 50% -10%,#514000 0,#17150c 22%,#090a0f 58%);
+    radial-gradient(circle at 78% 8%,
+      #fff7a0 0 5%,
+      #ffe36b 6%,
+      transparent 13%),
+
+    radial-gradient(ellipse at 8% 82%,
+      #16753c 0 14%,
+      transparent 15%),
+
+    radial-gradient(ellipse at 92% 78%,
+      #176f39 0 17%,
+      transparent 18%),
+
+    linear-gradient(
+      180deg,
+      #55ceff 0%,
+      #91e8ff 42%,
+      #76d86a 70%,
+      #269348 100%
+    );
+}
+
+.app:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(circle at 8% 34%,#176b3d 0 35px,transparent 36px),
+    radial-gradient(circle at 19% 29%,#238c49 0 48px,transparent 49px),
+    radial-gradient(circle at 92% 31%,#176b3d 0 45px,transparent 46px),
+    radial-gradient(circle at 81% 27%,#2b9c51 0 55px,transparent 56px),
+
+    radial-gradient(circle at 25% 74%,#fff 0 3px,transparent 4px),
+    radial-gradient(circle at 75% 69%,#ffd7e8 0 4px,transparent 5px),
+    radial-gradient(circle at 90% 73%,#fff3a5 0 3px,transparent 4px);
+
+  opacity:.9;
+}
+
+.app:after{
+  content:"";
+  position:absolute;
+  left:-10%;
+  right:-10%;
+  bottom:0;
+  height:28%;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 100%,
+      #49bee9 0 22%,
+      #258fc8 23% 31%,
+      transparent 32%
+    );
+
+  pointer-events:none;
+  z-index:0;
+}
+
+.app>*{
+  position:relative;
+  z-index:1;
 }
 
 /* HEADER */
 
 .header{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
 }
 
 .logo{
   font-size:27px;
   font-weight:900;
+  text-shadow:0 3px 0 #8b5200;
 }
 
-.logo span{
-  color:#ffd447;
+.subtitle{
+  font-size:11px;
+  font-weight:800;
+  opacity:.9;
 }
 
-.avatar{
-  width:46px;
-  height:46px;
-  border-radius:16px;
-  background:linear-gradient(145deg,#292d3a,#151821);
-  border:1px solid #383d4c;
+.profile{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#ffd85c,#ff9d28);
+  border:3px solid #fff;
   display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:24px;
+  justify-content:center;
+  font-size:23px;
+  box-shadow:0 4px 0 #a75c16;
 }
 
-/* USER */
+/* TOP CARDS */
 
-.username{
-  margin-top:8px;
-  color:#7f8799;
-  font-size:13px;
+.top{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
 
-/* PAGES */
+.card{
+  background:rgba(31,83,69,.72);
+  border:2px solid rgba(255,255,255,.65);
+  border-radius:18px;
+  padding:10px 12px;
+  box-shadow:0 6px 0 rgba(23,82,48,.35);
+  backdrop-filter:blur(5px);
+}
+
+.card-title{
+  font-size:11px;
+  font-weight:900;
+  opacity:.85;
+}
+
+.balance{
+  font-size:22px;
+  font-weight:1000;
+  margin-top:3px;
+}
+
+.energy-line{
+  height:10px;
+  border-radius:10px;
+  background:#174d3a;
+  overflow:hidden;
+  margin-top:7px;
+}
+
+.energy-fill{
+  height:100%;
+  width:100%;
+  background:linear-gradient(90deg,#ffe34e,#ff9b24);
+  border-radius:10px;
+  transition:.25s;
+}
+
+.energy-text{
+  font-size:11px;
+  font-weight:800;
+  margin-top:4px;
+}
+
+/* HOME */
 
 .page{
   display:none;
-  animation:pageIn .35s ease;
+  animation:pageIn .25s ease;
 }
 
 .page.active{
@@ -87,1052 +207,772 @@ body{
 @keyframes pageIn{
   from{
     opacity:0;
-    transform:translateY(12px);
+    transform:translateY(8px);
   }
   to{
     opacity:1;
-    transform:translateY(0);
+    transform:none;
   }
 }
 
-/* BALANCE */
+/* SIDE BUTTONS */
 
-.balance-card{
-  margin-top:20px;
-  padding:22px;
-  border-radius:28px;
-  text-align:center;
-
-  background:
-    radial-gradient(circle at 50% 0,#51440f,#19170d 45%,#11131b);
-
-  border:1px solid #4a401b;
-
-  box-shadow:
-    0 20px 50px #0008,
-    inset 0 1px #ffffff0a;
-}
-
-.balance-label{
-  color:#8c93a4;
-  font-size:11px;
-  letter-spacing:2px;
-}
-
-.balance{
-  margin-top:5px;
-  font-size:43px;
-  font-weight:900;
-}
-
-.tc{
-  color:#ffd447;
-  font-size:18px;
-}
-
-/* STATS */
-
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:12px;
-}
-
-.stat{
-  padding:15px;
-  border-radius:20px;
-  background:#12151e;
-  border:1px solid #272c38;
-}
-
-.stat-title{
-  color:#777f91;
-  font-size:11px;
-}
-
-.stat-value{
-  margin-top:5px;
-  font-size:19px;
-  font-weight:900;
-}
-
-/* ENERGY */
-
-.energy{
-  margin-top:12px;
-  padding:16px;
-  border-radius:22px;
-  background:#12151e;
-  border:1px solid #272c38;
-}
-
-.energy-top{
+.arena{
+  position:relative;
+  min-height:440px;
   display:flex;
-  justify-content:space-between;
-  font-size:13px;
-  color:#aab2c2;
+  justify-content:center;
+  align-items:center;
 }
 
-.energy-bar{
-  height:9px;
-  margin-top:10px;
-  background:#282c37;
-  border-radius:20px;
-  overflow:hidden;
+.side{
+  position:absolute;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  top:72px;
 }
 
-.energy-fill{
-  width:100%;
-  height:100%;
-  background:linear-gradient(90deg,#ffad00,#ffe36b);
-  transition:.2s;
+.side.left{
+  left:0;
+}
+
+.side.right{
+  right:0;
+}
+
+.side-btn{
+  width:57px;
+  height:57px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#fff,#e6f5e9);
+  border:3px solid #397a49;
+  box-shadow:0 5px 0 #255d36;
+  font-size:24px;
+  transition:.12s;
+}
+
+.side-btn:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 #255d36;
+}
+
+.side-label{
+  font-size:8px;
+  font-weight:1000;
+  color:#23613b;
 }
 
 /* TEDDY */
 
-.teddy-zone{
-  position:relative;
+.teddy-wrap{
   text-align:center;
-  margin:28px 0 20px;
+  margin-top:45px;
 }
 
 .teddy{
-  width:235px;
-  height:235px;
-
-  border:0;
+  width:205px;
+  height:205px;
   border-radius:50%;
-
   background:
-    radial-gradient(circle at 35% 25%,
-    #fff6ad 0,
-    #ffd447 40%,
-    #d99800 100%);
+    radial-gradient(circle at 35% 27%,#ffe0a1 0 8%,transparent 9%),
+    linear-gradient(145deg,#d18a3c,#8d4d20);
 
-  font-size:112px;
-
+  border:8px solid #713b1d;
   box-shadow:
-    0 0 0 8px #ffd4470d,
-    0 0 45px #ffd44745,
-    inset 0 -20px 30px #0002;
+    inset 0 -15px 0 rgba(80,35,10,.18),
+    0 14px 0 rgba(82,46,21,.45),
+    0 20px 30px rgba(0,0,0,.22);
 
-  transition:.12s;
-
-  touch-action:manipulation;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:85px;
+  user-select:none;
+  transition:.1s;
+  position:relative;
 }
 
-.teddy:active{
-  transform:scale(.91);
+.teddy:before,
+.teddy:after{
+  content:"";
+  position:absolute;
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:#b86d2f;
+  border:6px solid #713b1d;
+  top:-15px;
+  z-index:-1;
+}
+
+.teddy:before{
+  left:-18px;
+}
+
+.teddy:after{
+  right:-18px;
 }
 
 .teddy.hit{
-  animation:teddyHit .28s ease;
+  transform:scale(.91) rotate(-2deg);
 }
 
-@keyframes teddyHit{
-  0%{transform:scale(1) rotate(0)}
-  30%{transform:scale(.88) rotate(-5deg)}
-  60%{transform:scale(1.07) rotate(5deg)}
-  100%{transform:scale(1) rotate(0)}
+.teddy-face{
+  position:relative;
+  z-index:2;
 }
 
-.tap{
-  margin-top:13px;
-  color:#777f91;
-  font-size:13px;
+.sunglasses{
+  font-size:58px;
+  margin-bottom:-20px;
 }
 
-/* FLOAT COINS */
+.teddy-name{
+  margin-top:25px;
+  font-size:15px;
+  font-weight:1000;
+  text-shadow:0 3px 0 #215f38;
+}
 
-.coin-float{
-  position:absolute;
-  left:50%;
-  top:75px;
+.tap-text{
+  margin-top:5px;
+  font-size:12px;
+  font-weight:800;
+  opacity:.9;
+}
 
-  color:#ffd447;
-  font-size:25px;
-  font-weight:900;
+/* FLOAT */
 
+.float{
+  position:fixed;
   pointer-events:none;
-
-  animation:coinFloat .8s ease forwards;
-}
-
-@keyframes coinFloat{
-  0%{
-    opacity:0;
-    transform:translate(-50%,20px) scale(.6);
-  }
-
-  20%{
-    opacity:1;
-  }
-
-  100%{
-    opacity:0;
-    transform:translate(-50%,-110px) scale(1.2);
-  }
-}
-
-/* ACTION CARDS */
-
-.action{
-  padding:17px;
-  border-radius:22px;
-  background:#12151e;
-  border:1px solid #292e3a;
-  margin-top:12px;
-}
-
-.action-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.action-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.action-icon{
-  width:46px;
-  height:46px;
-  border-radius:15px;
-  background:#202532;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  font-weight:1000;
   font-size:23px;
+  color:#fff;
+  text-shadow:0 3px 0 #18833d;
+  animation:floatUp .8s ease forwards;
+  z-index:50;
 }
 
-.action-title{
+@keyframes floatUp{
+  from{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  to{
+    opacity:0;
+    transform:translateY(-90px) scale(1.3);
+  }
+}
+
+/* INFO */
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:8px;
+}
+
+.info{
+  background:rgba(35,91,65,.78);
+  border:2px solid rgba(255,255,255,.6);
+  border-radius:17px;
+  padding:12px;
+  box-shadow:0 5px 0 rgba(20,70,38,.3);
+}
+
+.info-title{
+  font-size:10px;
+  opacity:.8;
   font-weight:900;
 }
 
-.action-sub{
-  margin-top:4px;
-  color:#7d8597;
-  font-size:11px;
-}
-
-.btn{
-  border:0;
-  border-radius:14px;
-  padding:11px 15px;
-  background:#ffd447;
-  color:#111;
-  font-weight:900;
-}
-
-.btn:active{
-  transform:scale(.94);
+.info-value{
+  font-size:17px;
+  font-weight:1000;
+  margin-top:3px;
 }
 
 /* TURBO */
 
 .turbo{
-  border-color:#5c4b14;
-  background:
-    linear-gradient(135deg,#211d0b,#12151e);
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#ffb82e,#ff6b28);
+  color:#fff;
+  font-size:17px;
+  font-weight:1000;
+  border:3px solid #fff;
+  box-shadow:0 6px 0 #a84420;
 }
 
-.turbo-time{
-  color:#ffd447;
-  font-weight:900;
+.turbo:active{
+  transform:translateY(4px);
+  box-shadow:0 2px 0 #a84420;
 }
 
-/* TITLES */
+/* PAGES */
 
 .title{
-  margin:8px 0 16px;
   font-size:25px;
+  font-weight:1000;
+  margin:8px 3px 14px;
+  text-shadow:0 3px 0 #28693d;
 }
 
-/* SHOP */
-
-.shop-card{
-  margin-top:11px;
-  padding:17px;
-  border-radius:21px;
-  background:#12151e;
-  border:1px solid #292e3a;
+.box{
+  background:rgba(31,83,69,.82);
+  border:2px solid rgba(255,255,255,.65);
+  border-radius:20px;
+  padding:14px;
+  margin-bottom:10px;
+  box-shadow:0 6px 0 rgba(23,82,48,.35);
 }
 
-.shop-top{
+.row{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.shop-icon{
+.big-icon{
+  font-size:38px;
+}
+
+.item-title{
+  font-size:16px;
+  font-weight:1000;
+}
+
+.item-desc{
+  font-size:11px;
+  opacity:.8;
+  margin-top:4px;
+}
+
+.buy{
+  background:#ffd34e;
+  color:#744600;
+  border:3px solid #fff;
+  border-radius:14px;
+  padding:9px 12px;
+  font-weight:1000;
+  box-shadow:0 4px 0 #a36b10;
+}
+
+.buy:active{
+  transform:translateY(3px);
+  box-shadow:0 1px 0 #a36b10;
+}
+
+/* TASK */
+
+.task{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.task-icon{
   width:50px;
   height:50px;
-  border-radius:16px;
-  background:#222633;
+  border-radius:15px;
+  background:#ffd95c;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:25px;
 }
 
-.shop-info{
-  flex:1;
-  margin-left:12px;
-}
-
-.shop-name{
-  font-weight:900;
-}
-
-.shop-desc{
-  margin-top:5px;
-  color:#777f91;
-  font-size:11px;
-}
-
-/* FRIENDS */
-
-.invite-card{
-  text-align:center;
-  padding:28px 20px;
-  border-radius:25px;
-  background:
-    radial-gradient(circle at 50% 0,#31280b,#13161f 60%);
-  border:1px solid #4a401b;
-}
-
-.invite-icon{
-  font-size:50px;
-}
-
-.invite-title{
-  font-size:22px;
-  font-weight:900;
-  margin-top:10px;
-}
-
-.invite-desc{
-  color:#80889a;
-  font-size:13px;
-  line-height:1.5;
-  margin:10px 0 18px;
-}
-
-/* RATING */
-
-.rank{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding:15px;
-
-  margin-top:10px;
-
-  background:#12151e;
-  border:1px solid #292e3a;
-  border-radius:19px;
-}
-
-.rank-left{
-  display:flex;
-  align-items:center;
-}
-
-.rank-num{
-  width:38px;
-  height:38px;
+.reward{
+  margin-left:auto;
+  background:#55d77a;
+  padding:7px 10px;
   border-radius:12px;
-  background:#242936;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  margin-right:11px;
-
-  font-weight:900;
-}
-
-.rank-name{
-  font-weight:800;
-}
-
-.rank-coins{
-  color:#ffd447;
-  font-weight:900;
+  font-size:11px;
+  font-weight:1000;
 }
 
 /* PROFILE */
 
-.profile-card{
+.profile-big{
   text-align:center;
-  padding:28px;
-  border-radius:25px;
-  background:#12151e;
-  border:1px solid #292e3a;
+  padding:20px;
 }
 
-.profile-avatar{
-  width:82px;
-  height:82px;
+.avatar{
+  width:90px;
+  height:90px;
   margin:auto;
-
-  border-radius:27px;
-
-  background:
-    linear-gradient(145deg,#302f27,#181a22);
-
+  border-radius:50%;
+  background:linear-gradient(145deg,#ffd75c,#ff9b27);
+  border:5px solid #fff;
   display:flex;
   justify-content:center;
   align-items:center;
-
-  font-size:43px;
-
-  box-shadow:0 10px 35px #0008;
+  font-size:50px;
+  box-shadow:0 7px 0 #a45b18;
 }
 
-.profile-name{
-  margin-top:14px;
+.username{
   font-size:22px;
-  font-weight:900;
+  font-weight:1000;
+  margin-top:12px;
 }
 
-.profile-id{
-  margin-top:6px;
-  color:#777f91;
-  font-size:11px;
-}
-
-.profile-stat{
-  display:flex;
-  justify-content:space-between;
-  padding:16px;
-  margin-top:10px;
-  border-radius:18px;
-  background:#12151e;
-  border:1px solid #292e3a;
-}
-
-/* BOTTOM */
+/* BOTTOM NAV */
 
 .nav{
   position:fixed;
-  z-index:100;
-
   left:50%;
-  bottom:0;
-
+  bottom:8px;
   transform:translateX(-50%);
-
-  width:min(520px,100%);
-
+  width:min(540px,calc(100% - 18px));
+  background:rgba(26,72,57,.94);
+  border:2px solid rgba(255,255,255,.65);
+  border-radius:22px;
+  padding:7px;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-
-  padding:9px 6px calc(9px + env(safe-area-inset-bottom));
-
-  background:#0b0e15ee;
-  backdrop-filter:blur(20px);
-
-  border-top:1px solid #292e3a;
+  gap:5px;
+  z-index:100;
+  backdrop-filter:blur(10px);
+  box-shadow:0 7px 20px rgba(0,0,0,.25);
 }
 
 .nav button{
-  border:0;
-  background:none;
-  color:#70788b;
-  font-size:10px;
-  padding:4px;
+  background:transparent;
+  color:#fff;
+  border-radius:15px;
+  padding:7px 2px;
+  font-size:21px;
+}
+
+.nav button span{
+  display:block;
+  font-size:8px;
+  font-weight:900;
+  margin-top:2px;
 }
 
 .nav button.active{
-  color:#ffd447;
+  background:#ffd54f;
+  color:#704500;
 }
 
-.nav-icon{
-  display:block;
-  font-size:21px;
-  margin-bottom:3px;
-}
+/* MOBILE */
 
-/* TOAST */
-
-.toast{
-  position:fixed;
-  z-index:500;
-
-  top:18px;
-  left:50%;
-
-  transform:translate(-50%,-20px);
-
-  padding:12px 18px;
-
-  background:#202531;
-  border:1px solid #3a4050;
-
-  border-radius:15px;
-
-  opacity:0;
-  pointer-events:none;
-
-  transition:.25s;
-
-  font-size:13px;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* PARTICLES */
-
-.particle{
-  position:absolute;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#ffd447;
-  pointer-events:none;
-  animation:particle .7s ease forwards;
-}
-
-@keyframes particle{
-  0%{
-    opacity:1;
-    transform:translate(0,0) scale(1);
+@media(max-width:380px){
+  .teddy{
+    width:175px;
+    height:175px;
+    font-size:72px;
   }
 
-  100%{
-    opacity:0;
-    transform:translate(var(--x),var(--y)) scale(.2);
+  .side-btn{
+    width:50px;
+    height:50px;
+  }
+
+  .side{
+    top:65px;
+  }
+
+  .arena{
+    min-height:405px;
   }
 }
-
 </style>
 </head>
 
 <body>
 
-<div id="toast" class="toast"></div>
-
 <div class="app">
 
-<header class="header">
+  <header class="header">
+    <div>
+      <div class="logo">👑 TeddyCoin</div>
+      <div class="subtitle">Тапай • Развивайся • Стань легендой!</div>
+    </div>
 
-<div class="logo">
-Teddy<span>Coin</span>
-</div>
-
-<div class="avatar">
-🧸
-</div>
-
-</header>
-
-<div id="username" class="username">
-Подключение Telegram...
-</div>
-
-
-<!-- HOME -->
-
-<section id="home" class="page active">
-
-<div class="balance-card">
-
-<div class="balance-label">
-ТВОЙ БАЛАНС
-</div>
-
-<div class="balance">
-<span id="coins">0</span>
-<span class="tc">TC</span>
-</div>
-
-</div>
-
-
-<div class="stats">
-
-<div class="stat">
-
-<div class="stat-title">
-🔥 Множитель
-</div>
-
-<div class="stat-value">
-x<span id="multi">1</span>
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="stat-title">
-⚡ Энергия
-</div>
-
-<div class="stat-value">
-<span id="energy">1000</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="energy">
-
-<div class="energy-top">
-
-<span>⚡ Энергия</span>
-
-<b>
-<span id="energyText">1000</span>/1000
-</b>
-
-</div>
-
-<div class="energy-bar">
-
-<div id="energyFill" class="energy-fill"></div>
-
-</div>
-
-</div>
-
-
-<div class="teddy-zone">
-
-<button id="teddy" class="teddy">
-🧸
-</button>
-
-<div class="tap">
-Нажимай на Teddy
-</div>
-
-</div>
-
-
-<div class="action turbo">
-
-<div class="action-row">
-
-<div class="action-left">
-
-<div class="action-icon">
-🔥
-</div>
-
-<div>
-
-<div class="action-title">
-Turbo
-</div>
-
-<div class="action-sub">
-2× монеты на 30 секунд
-</div>
-
-</div>
-
-</div>
-
-<button id="turboBtn" class="btn" onclick="activateTurbo()">
-100 TC
-</button>
-
-</div>
+    <button class="profile" onclick="openPage('profile')">🧸</button>
+  </header>
 
-</div>
-
-
-<div class="action">
-
-<div class="action-row">
-
-<div class="action-left">
-
-<div class="action-icon">
-🎁
-</div>
-
-<div>
-
-<div class="action-title">
-Ежедневный бонус
-</div>
-
-<div class="action-sub">
-Получай награду каждый день
-</div>
-
-</div>
-
-</div>
-
-<button class="btn" onclick="dailyBonus()">
-Получить
-</button>
-
-</div>
-
-</div>
-
-</section>
+  <!-- HOME -->
 
+  <section id="home" class="page active">
 
-<!-- SHOP -->
+    <div class="top">
 
-<section id="shop" class="page">
+      <div class="card">
+        <div class="card-title">💰 БАЛАНС</div>
+        <div class="balance" id="balance">0 TC</div>
+      </div>
 
-<div class="title">
-🛒 Магазин
-</div>
-
+      <div class="card">
+        <div class="card-title">⚡ ЭНЕРГИЯ</div>
+        <div class="energy-line">
+          <div class="energy-fill" id="energyFill"></div>
+        </div>
+        <div class="energy-text" id="energyText">1000 / 1000</div>
+      </div>
 
-<div class="shop-card">
+    </div>
 
-<div class="shop-top">
+    <div class="arena">
 
-<div class="shop-icon">
-⚡
-</div>
+      <div class="side left">
 
-<div class="shop-info">
-
-<div class="shop-name">
-+250 энергии
-</div>
+        <button class="side-btn" onclick="daily()">🎁</button>
 
-<div class="shop-desc">
-Восстановить запас энергии
-</div>
+        <button class="side-btn" onclick="openPage('tasks')">📋</button>
 
-</div>
+        <button class="side-btn" onclick="openPage('friends')">👥</button>
 
-<button class="btn" onclick="buyEnergy()">
-500 TC
-</button>
+        <button class="side-btn" onclick="openPage('rating')">🏆</button>
 
-</div>
+      </div>
 
-</div>
+      <div class="side right">
 
+        <button class="side-btn" onclick="openPage('profile')">⚙️</button>
 
-<div class="shop-card">
+        <button class="side-btn" onclick="daily()">🎁</button>
 
-<div class="shop-top">
+        <button class="side-btn" onclick="turbo()">⚡</button>
 
-<div class="shop-icon">
-🔥
-</div>
+        <button class="side-btn" onclick="openPage('shop')">🎡</button>
 
-<div class="shop-info">
+      </div>
 
-<div class="shop-name">
-x2 множитель
-</div>
+      <div class="teddy-wrap">
 
-<div class="shop-desc">
-Увеличивает доход навсегда
-</div>
+        <div class="teddy" id="teddy" onclick="tap(event)">
+          <div class="teddy-face">
+            🧸
+          </div>
+        </div>
 
-</div>
+        <div class="teddy-name">TEDDY MASTER</div>
+        <div class="tap-text">НАЖИМАЙ НА МИШКУ</div>
 
-<button class="btn" onclick="buyMulti()">
-2500 TC
-</button>
+      </div>
 
-</div>
+    </div>
 
-</div>
+    <div class="info-grid">
 
+      <div class="info">
+        <div class="info-title">🔥 УРОВЕНЬ</div>
+        <div class="info-value" id="level">1</div>
+      </div>
 
-<div class="shop-card">
+      <div class="info">
+        <div class="info-title">✨ МНОЖИТЕЛЬ</div>
+        <div class="info-value" id="multiplier">x1</div>
+      </div>
 
-<div class="shop-top">
+      <div class="info">
+        <div class="info-title">👆 НАЖАТИЙ</div>
+        <div class="info-value" id="clicks">0</div>
+      </div>
 
-<div class="shop-icon">
-💎
-</div>
+      <div class="info">
+        <div class="info-title">🏅 ФОРМА</div>
+        <div class="info-value" id="form">Новичок</div>
+      </div>
 
-<div class="shop-info">
+    </div>
 
-<div class="shop-name">
-Большой запас
-</div>
+    <button class="turbo" onclick="turbo()" id="turboButton">
+      ⚡ TURBO — x2 на 30 сек.
+    </button>
 
-<div class="shop-desc">
-Полностью восстановить энергию
-</div>
+  </section>
 
-</div>
 
-<button class="btn" onclick="buyFullEnergy()">
-1500 TC
-</button>
+  <!-- SHOP -->
 
-</div>
+  <section id="shop" class="page">
 
-</div>
+    <div class="title">🛒 Магазин</div>
 
-</section>
+    <div class="box">
+      <div class="row">
+        <div class="big-icon">⚡</div>
 
+        <div style="flex:1">
+          <div class="item-title">+250 энергии</div>
+          <div class="item-desc">Восстановить энергию</div>
+        </div>
 
-<!-- FRIENDS -->
+        <button class="buy" onclick="buyEnergy()">500 TC</button>
+      </div>
+    </div>
 
-<section id="friends" class="page">
+    <div class="box">
+      <div class="row">
+        <div class="big-icon">🔥</div>
 
-<div class="title">
-👥 Друзья
-</div>
+        <div style="flex:1">
+          <div class="item-title">Множитель x2</div>
+          <div class="item-desc">Увеличить награду за тап</div>
+        </div>
 
-<div class="invite-card">
+        <button class="buy" onclick="buyMultiplier()">2500 TC</button>
+      </div>
+    </div>
 
-<div class="invite-icon">
-🤝
-</div>
+    <div class="box">
+      <div class="row">
+        <div class="big-icon">💎</div>
 
-<div class="invite-title">
-Приглашай друзей
-</div>
+        <div style="flex:1">
+          <div class="item-title">Полная энергия</div>
+          <div class="item-desc">Мгновенно восстановить всё</div>
+        </div>
 
-<div class="invite-desc">
-Отправляй свою ссылку друзьям и получай бонусы вместе.
-</div>
+        <button class="buy" onclick="fullEnergy()">1500 TC</button>
+      </div>
+    </div>
 
-<button class="btn" onclick="invite()">
-🔗 Пригласить друга
-</button>
+  </section>
 
-</div>
 
-</section>
+  <!-- TASKS -->
 
+  <section id="tasks" class="page">
 
-<!-- RATING -->
+    <div class="title">📋 Задания</div>
 
-<section id="rating" class="page">
+    <div class="box">
+      <div class="task">
+        <div class="task-icon">👆</div>
 
-<div class="title">
-🏆 Рейтинг
-</div>
+        <div>
+          <div class="item-title">Сделать 100 тапов</div>
+          <div class="item-desc">Нажимай на Teddy</div>
+        </div>
 
-<div class="rank">
+        <div class="reward">+500 TC</div>
+      </div>
+    </div>
 
-<div class="rank-left">
+    <div class="box">
+      <div class="task">
+        <div class="task-icon">🔥</div>
 
-<div class="rank-num">
-1
-</div>
+        <div>
+          <div class="item-title">Использовать Turbo</div>
+          <div class="item-desc">Активируй ускорение</div>
+        </div>
 
-<div class="rank-name">
-Ты
-</div>
+        <div class="reward">+1000 TC</div>
+      </div>
+    </div>
 
-</div>
+    <div class="box">
+      <div class="task">
+        <div class="task-icon">🎁</div>
 
-<div id="rankCoins" class="rank-coins">
-0 TC
-</div>
+        <div>
+          <div class="item-title">Получить бонус</div>
+          <div class="item-desc">Забери ежедневную награду</div>
+        </div>
 
-</div>
+        <div class="reward">+500 TC</div>
+      </div>
+    </div>
 
+  </section>
 
-<div class="rank">
 
-<div class="rank-left">
+  <!-- FRIENDS -->
 
-<div class="rank-num">
-2
-</div>
+  <section id="friends" class="page">
 
-<div class="rank-name">
-TeddyMaster
-</div>
+    <div class="title">👥 Друзья</div>
 
-</div>
+    <div class="box" style="text-align:center">
 
-<div class="rank-coins">
-—
-</div>
+      <div style="font-size:60px">🧸</div>
 
-</div>
+      <div class="item-title">Приглашай друзей!</div>
 
+      <div class="item-desc">
+        Получай бонусы за приглашённых игроков.
+      </div>
 
-<div class="rank">
+      <button class="turbo" onclick="invite()">
+        👥 ПРИГЛАСИТЬ ДРУЗЕЙ
+      </button>
 
-<div class="rank-left">
+    </div>
 
-<div class="rank-num">
-3
-</div>
+    <div class="box">
+      <div class="row">
+        <b>Приглашено</b>
+        <b id="friendsCount">0</b>
+      </div>
+    </div>
 
-<div class="rank-name">
-CoinBear
-</div>
+  </section>
 
-</div>
 
-<div class="rank-coins">
-—
-</div>
+  <!-- RATING -->
 
-</div>
+  <section id="rating" class="page">
 
-</section>
+    <div class="title">🏆 Рейтинг</div>
 
+    <div class="box">
+      🥇 Player Teddy — 125 000 TC
+    </div>
 
-<!-- PROFILE -->
+    <div class="box">
+      🥈 Golden Bear — 98 400 TC
+    </div>
 
-<section id="profile" class="page">
+    <div class="box">
+      🥉 Teddy King — 76 250 TC
+    </div>
 
-<div class="title">
-👤 Профиль
-</div>
+    <div class="box">
+      🧸 Ты — <span id="myRating">1 000</span> TC
+    </div>
 
-<div class="profile-card">
+  </section>
 
-<div class="profile-avatar">
-🧸
-</div>
 
-<div id="profileName" class="profile-name">
-Игрок
-</div>
+  <!-- PROFILE -->
 
-<div id="profileId" class="profile-id">
-Telegram ID: —
-</div>
+  <section id="profile" class="page">
 
-</div>
+    <div class="title">👤 Профиль</div>
 
+    <div class="box profile-big">
 
-<div class="profile-stat">
+      <div class="avatar">🧸</div>
 
-<span>💰 Баланс</span>
+      <div class="username" id="username">Игрок</div>
 
-<b>
-<span id="profileCoins">0</span> TC
-</b>
+      <div class="item-desc" id="telegramId">
+        Telegram ID: —
+      </div>
 
-</div>
+    </div>
 
+    <div class="box">
 
-<div class="profile-stat">
+      <div class="row">
+        <span>💰 Баланс</span>
+        <b id="profileBalance">0 TC</b>
+      </div>
 
-<span>🔥 Множитель</span>
+    </div>
 
-<b>
-x<span id="profileMulti">1</span>
-</b>
+    <div class="box">
 
-</div>
+      <div class="row">
+        <span>⚡ Энергия</span>
+        <b id="profileEnergy">1000</b>
+      </div>
 
+    </div>
 
-<div class="profile-stat">
+    <div class="box">
 
-<span>⚡ Энергия</span>
+      <div class="row">
+        <span>🔥 Множитель</span>
+        <b id="profileMultiplier">x1</b>
+      </div>
 
-<b>
-<span id="profileEnergy">1000</span>
-</b>
+    </div>
 
-</div>
+  </section>
 
-</section>
 
 </div>
 
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 
 <nav class="nav">
 
-<button class="active" onclick="openPage('home',this)">
-<span class="nav-icon">🏠</span>
-Главная
-</button>
+  <button class="active" data-page="home" onclick="openPage('home')">
+    🏠
+    <span>Главная</span>
+  </button>
 
-<button onclick="openPage('shop',this)">
-<span class="nav-icon">🛒</span>
-Магазин
-</button>
+  <button data-page="shop" onclick="openPage('shop')">
+    🛒
+    <span>Магазин</span>
+  </button>
 
-<button onclick="openPage('friends',this)">
-<span class="nav-icon">👥</span>
-Друзья
-</button>
+  <button data-page="tasks" onclick="openPage('tasks')">
+    📋
+    <span>Задания</span>
+  </button>
 
-<button onclick="openPage('rating',this)">
-<span class="nav-icon">🏆</span>
-Рейтинг
-</button>
+  <button data-page="friends" onclick="openPage('friends')">
+    👥
+    <span>Друзья</span>
+  </button>
 
-<button onclick="openPage('profile',this)">
-<span class="nav-icon">👤</span>
-Профиль
-</button>
+  <button data-page="rating" onclick="openPage('rating')">
+    🏆
+    <span>Рейтинг</span>
+  </button>
 
 </nav>
 
 
 <script>
 
-/* TELEGRAM */
+const tg = window.Telegram?.WebApp;
 
-const tg = window.Telegram.WebApp;
+if(tg){
+  tg.ready();
+  tg.expand();
+}
 
-tg.ready();
-tg.expand();
 
-let user = null;
+/* STATE */
 
-if(tg.initDataUnsafe && tg.initDataUnsafe.user){
+let coins = Number(localStorage.getItem("coins") || 0);
+let energy = Number(localStorage.getItem("energy") || 1000);
+let clicks = Number(localStorage.getItem("clicks") || 0);
+let multiplier = Number(localStorage.getItem("multiplier") || 1);
+let friends = Number(localStorage.getItem("friends") || 0);
 
-  user = tg.initDataUnsafe.user;
+const MAX_ENERGY = 1000;
+
+let turboActive = false;
+
+
+/* TELEGRAM USER */
+
+if(tg && tg.initDataUnsafe && tg.initDataUnsafe.user){
+
+  const user = tg.initDataUnsafe.user;
 
   const name =
     user.first_name ||
     user.username ||
     "Игрок";
 
-  document.getElementById("username").textContent =
-    "👋 " + name;
+  document.getElementById("username").textContent = name;
 
-  document.getElementById("profileName").textContent =
-    name;
-
-  document.getElementById("profileId").textContent =
+  document.getElementById("telegramId").textContent =
     "Telegram ID: " + user.id;
 
 }
-
-
-/* DATA */
-
-let coins =
-  Number(localStorage.getItem("coins") || 0);
-
-let energy =
-  Number(localStorage.getItem("energy") || 1000);
-
-let multi =
-  Number(localStorage.getItem("multi") || 1);
-
-let turbo =
-  false;
-
-let turboTime =
-  0;
 
 
 /* SAVE */
@@ -1140,138 +980,89 @@ let turboTime =
 function save(){
 
   localStorage.setItem("coins",coins);
-
   localStorage.setItem("energy",energy);
-
-  localStorage.setItem("multi",multi);
-
-  update();
+  localStorage.setItem("clicks",clicks);
+  localStorage.setItem("multiplier",multiplier);
+  localStorage.setItem("friends",friends);
 
 }
 
 
-/* UPDATE */
+/* UI */
 
 function update(){
 
-  document.getElementById("coins").textContent =
-    coins;
-
-  document.getElementById("energy").textContent =
-    energy;
+  document.getElementById("balance").textContent =
+    Math.floor(coins) + " TC";
 
   document.getElementById("energyText").textContent =
-    energy;
+    Math.floor(energy) + " / " + MAX_ENERGY;
 
   document.getElementById("energyFill").style.width =
-    Math.min(100,energy / 10) + "%";
+    Math.max(0,Math.min(100,energy/MAX_ENERGY*100)) + "%";
 
-  document.getElementById("multi").textContent =
-    multi;
+  document.getElementById("clicks").textContent =
+    clicks;
 
-  document.getElementById("rankCoins").textContent =
-    coins + " TC";
+  document.getElementById("multiplier").textContent =
+    "x" + multiplier;
 
-  document.getElementById("profileCoins").textContent =
-    coins;
-
-  document.getElementById("profileMulti").textContent =
-    multi;
+  document.getElementById("profileBalance").textContent =
+    Math.floor(coins) + " TC";
 
   document.getElementById("profileEnergy").textContent =
-    energy;
+    Math.floor(energy);
 
-}
+  document.getElementById("profileMultiplier").textContent =
+    "x" + multiplier;
 
+  document.getElementById("friendsCount").textContent =
+    friends;
 
-/* TOAST */
+  const level =
+    Math.max(1,Math.floor(coins/1000)+1);
 
-function toast(text){
+  document.getElementById("level").textContent =
+    level;
 
-  const el =
-    document.getElementById("toast");
+  let form = "Новичок";
 
-  el.textContent =
-    text;
+  if(level >= 5) form = "Опытный";
+  if(level >= 10) form = "Мастер";
+  if(level >= 25) form = "Легенда";
 
-  el.classList.add("show");
+  document.getElementById("form").textContent =
+    form;
 
-  setTimeout(function(){
-
-    el.classList.remove("show");
-
-  },1800);
-
-}
-
-
-/* PARTICLES */
-
-function particles(){
-
-  const zone =
-    document.querySelector(".teddy-zone");
-
-  for(let i=0;i<8;i++){
-
-    const p =
-      document.createElement("div");
-
-    p.className =
-      "particle";
-
-    p.style.left =
-      "50%";
-
-    p.style.top =
-      "100px";
-
-    p.style.setProperty(
-      "--x",
-      (Math.random()*180-90)+"px"
-    );
-
-    p.style.setProperty(
-      "--y",
-      (Math.random()*-140-30)+"px"
-    );
-
-    zone.appendChild(p);
-
-    setTimeout(function(){
-
-      p.remove();
-
-    },700);
-
-  }
-
-}
-
-
-/* TEDDY */
-
-document
-.getElementById("teddy")
-.addEventListener("click",function(){
-
-  if(energy <= 0){
-
-    toast("⚡ Энергия закончилась!");
-
-    return;
-
-  }
-
-  let gain =
-    multi * (turbo ? 2 : 1);
-
-  coins += gain;
-
-  energy--;
+  document.getElementById("myRating").textContent =
+    Math.floor(coins).toLocaleString();
 
   save();
 
+}
+
+
+/* TAP */
+
+function tap(e){
+
+  if(energy <= 0){
+
+    if(tg && tg.HapticFeedback){
+      tg.HapticFeedback.notificationOccurred("error");
+    }
+
+    return;
+  }
+
+  const amount =
+    turboActive
+      ? 2 * multiplier
+      : multiplier;
+
+  coins += amount;
+  clicks++;
+  energy--;
 
   const teddy =
     document.getElementById("teddy");
@@ -1282,121 +1073,159 @@ document
 
   teddy.classList.add("hit");
 
+  setTimeout(()=>{
+    teddy.classList.remove("hit");
+  },120);
 
-  const text =
+  createFloat(
+    "+" + amount + " TC",
+    e.clientX,
+    e.clientY
+  );
+
+  if(tg && tg.HapticFeedback){
+    tg.HapticFeedback.impactOccurred("light");
+  }
+
+  update();
+
+}
+
+
+/* FLOATING TEXT */
+
+function createFloat(text,x,y){
+
+  const el =
     document.createElement("div");
 
-  text.className =
-    "coin-float";
+  el.className = "float";
+  el.textContent = text;
 
-  text.textContent =
-    "+" + gain + " TC";
+  el.style.left =
+    (x - 25) + "px";
 
-  document
-    .querySelector(".teddy-zone")
-    .appendChild(text);
+  el.style.top =
+    (y - 20) + "px";
 
-  setTimeout(function(){
+  document.body.appendChild(el);
 
-    text.remove();
-
+  setTimeout(()=>{
+    el.remove();
   },800);
 
-
-  particles();
-
-});
+}
 
 
 /* ENERGY */
 
-setInterval(function(){
+setInterval(()=>{
 
-  if(energy < 1000){
+  if(energy < MAX_ENERGY){
 
     energy++;
 
-    save();
+    update();
 
   }
 
 },1000);
 
 
+/* PAGE */
+
+function openPage(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p=>{
+      p.classList.remove("active");
+    });
+
+  const target =
+    document.getElementById(page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.dataset.page === page
+      );
+    });
+
+  window.scrollTo(0,0);
+
+}
+
+
 /* TURBO */
 
-function activateTurbo(){
+function turbo(){
 
-  if(turbo){
-
-    toast("🔥 Turbo уже работает!");
-
-    return;
-
-  }
+  if(turboActive) return;
 
   if(coins < 100){
 
-    toast("❌ Нужно 100 TC");
+    alert("Нужно 100 TC");
 
     return;
-
   }
 
   coins -= 100;
+  turboActive = true;
 
-  turbo = true;
+  const button =
+    document.getElementById("turboButton");
 
-  turboTime = 30;
+  let seconds = 30;
 
-  save();
-
-  const btn =
-    document.getElementById("turboBtn");
-
-  btn.textContent =
-    "30с";
-
+  button.textContent =
+    "⚡ TURBO АКТИВЕН: " + seconds + " сек.";
 
   const timer =
-    setInterval(function(){
+    setInterval(()=>{
 
-      turboTime--;
+      seconds--;
 
-      btn.textContent =
-        turboTime + "с";
+      button.textContent =
+        "⚡ TURBO АКТИВЕН: " + seconds + " сек.";
 
-      if(turboTime <= 0){
+      if(seconds <= 0){
 
         clearInterval(timer);
 
-        turbo = false;
+        turboActive = false;
 
-        btn.textContent =
-          "100 TC";
-
-        toast("🔥 Turbo закончился!");
+        button.textContent =
+          "⚡ TURBO — x2 на 30 сек.";
 
       }
 
     },1000);
+
+  update();
 
 }
 
 
 /* DAILY */
 
-function dailyBonus(){
+function daily(){
 
   const today =
     new Date().toDateString();
 
   const last =
-    localStorage.getItem("dailyBonus");
+    localStorage.getItem("daily");
 
   if(last === today){
 
-    toast("🎁 Бонус уже получен!");
+    alert("🎁 Бонус уже получен сегодня!");
 
     return;
 
@@ -1405,13 +1234,13 @@ function dailyBonus(){
   coins += 500;
 
   localStorage.setItem(
-    "dailyBonus",
+    "daily",
     today
   );
 
-  save();
+  alert("🎁 Ты получил +500 TC!");
 
-  toast("🎁 +500 TC!");
+  update();
 
 }
 
@@ -1422,70 +1251,56 @@ function buyEnergy(){
 
   if(coins < 500){
 
-    toast("❌ Недостаточно TC");
+    alert("Недостаточно TC");
 
     return;
-
-  }
-
-  if(energy >= 1000){
-
-    toast("⚡ Энергия полная");
-
-    return;
-
   }
 
   coins -= 500;
 
   energy =
-    Math.min(1000,energy + 250);
+    Math.min(
+      MAX_ENERGY,
+      energy + 250
+    );
 
-  save();
-
-  toast("⚡ +250 энергии!");
+  update();
 
 }
 
 
-function buyMulti(){
+function buyMultiplier(){
 
   if(coins < 2500){
 
-    toast("❌ Недостаточно TC");
+    alert("Недостаточно TC");
 
     return;
-
   }
 
   coins -= 2500;
 
-  multi *= 2;
+  multiplier *= 2;
 
-  save();
-
-  toast("🔥 Множитель x" + multi);
+  update();
 
 }
 
 
-function buyFullEnergy(){
+function fullEnergy(){
 
   if(coins < 1500){
 
-    toast("❌ Недостаточно TC");
+    alert("Недостаточно TC");
 
     return;
-
   }
 
   coins -= 1500;
 
-  energy = 1000;
+  energy = MAX_ENERGY;
 
-  save();
-
-  toast("💎 Энергия восстановлена!");
+  update();
 
 }
 
@@ -1494,54 +1309,27 @@ function buyFullEnergy(){
 
 function invite(){
 
-  if(navigator.clipboard){
+  const link =
+    window.location.href;
 
-    navigator.clipboard.writeText(
-      location.href
-    );
+  const text =
+    "🧸 Заходи в TeddyCoin и зарабатывай TC вместе со мной!";
 
-    toast("🔗 Ссылка скопирована!");
+  const share =
+    "https://t.me/share/url?url=" +
+    encodeURIComponent(link) +
+    "&text=" +
+    encodeURIComponent(text);
+
+  if(tg && tg.openTelegramLink){
+
+    tg.openTelegramLink(share);
 
   }else{
 
-    toast("🔗 Скопируй ссылку из браузера");
+    window.open(share,"_blank");
 
   }
-
-}
-
-
-/* NAVIGATION */
-
-function openPage(id,button){
-
-  document
-    .querySelectorAll(".page")
-    .forEach(function(page){
-
-      page.classList.remove("active");
-
-    });
-
-  document
-    .getElementById(id)
-    .classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(function(btn){
-
-      btn.classList.remove("active");
-
-    });
-
-  button.classList.add("active");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
 
 }
 
